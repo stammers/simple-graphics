@@ -1,0 +1,38 @@
+LIBDIR=-LC:/Libraries/glew-1.10.0/lib/mingw -LC:/Libraries/glfw-3.0.3/lib-mingw
+INCDIR=-IC:/Libraries/GLM/glm -IC:/Libraries/glfw-3.0.3/include -IC:/Libraries/glew-1.10.0/include
+
+EXEC=SimpleGraphics.exe
+LIBWIN=-lstdc++ -lmingw32 -lm -lglfw3 -lglew32 -lglu32 -lopengl32 -mwindows
+LIBLIN=-lglfw3 -lstdc++ -lGL -lGLEW -lm -lXrandr -lXi
+CXXFLAGS=-O0 -g3 -Wall -c -fmessage-length=0
+GCC=g++
+OBJECTS=main.o sphere.o utils.o animator.o renderer.o
+
+all: main
+
+main: $(OBJECTS)
+ifeq ($(OS),Windows_NT)
+    #Windows stuff
+	$(GCC) $(LIBDIR) -o $(EXEC) $(OBJECTS) $(LIBWIN)
+else
+    #Linux stuff
+	$(GCC) $(LIBDIR) -o $(EXEC) $(OBJECTS) $(LIBLIN)
+endif	
+
+%.o: %.cpp
+	$(GCC) $(INCDIR) $(CXXFLAGS) -o $@ $<
+	
+clean:
+ifeq ($(OS),Windows_NT)
+    #Windows stuff
+	del /s *.o $(EXEC)
+else
+    #Linux stuff
+	rm -rf *o $(EXEC)
+endif
+	
+
+
+
+
+

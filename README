@@ -1,0 +1,3 @@
+Requires GLM, glew and glfw 3 to compile, requires glew to run.
+
+Use the keys A to E to change between scenes
